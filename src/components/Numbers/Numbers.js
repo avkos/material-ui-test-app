@@ -4,15 +4,26 @@ import EditDialog from './EditDialog';
 import {List, ListItem} from 'material-ui/List';
 export default class Numbers extends Component {
     componentWillMount() {
-        let {state={numbers:[]}} = this.props;
-        this.state = state;
-        this.state.selectBox = [
-            {value: 1, title: 'Ones'},
-            {value: 2, title: 'Twice'},
-            {value: 3, title: 'Triple'},
-            {value: 4, title: 'Quad'}
-        ];
-    }
+        let {
+            state = {
+                numbers: [
+                    {select: 1, text: '22'},
+                    {select: 3, text: '11'},
+                    {select: 2, text: '33'},
+                ],
+            }
+        }= this.props;
+        this.state = {
+            ...state, selectBox: [
+                {value: 1, title: 'Ones'},
+                {value: 2, title: 'Twice'},
+                {value: 3, title: 'Triple'},
+                {value: 4, title: 'Quad'}
+            ]
+        }
+
+    };
+
 
     render() {
         const {isOpenDialog = false, numbers = [], selectBox = []}=this.state;
@@ -22,21 +33,22 @@ export default class Numbers extends Component {
                     {this.getListItems()}
                 </List>
 
-                <RaisedButton label="Edit" onTouchTap={this.handleOpen}/>
-                <EditDialog isOpen={isOpenDialog}
-                            numbers={numbers}
-                            selectBox={selectBox}
-                            onClose={this.handleClose()}
-                            onSubmit={this.handleSubmit()}/>
+                <RaisedButton label="Edit" onTouchTap={this.handleOpen()}/>
+                {isOpenDialog && <EditDialog isOpen={isOpenDialog}
+                                             numbers={[...numbers]}
+                                             selectBox={selectBox}
+                                             onClose={this.handleClose()}
+                                             onSubmit={this.handleSubmit()}/>}
             </div>
         );
     }
 
-    handleOpen = () => {
+    handleOpen = () => () => {
         this.setState({isOpenDialog: true});
     };
 
     handleClose = () => () => {
+        console.log(this.state)
         this.setState({isOpenDialog: false});
     };
     handleSubmit = () => (numbers) => {

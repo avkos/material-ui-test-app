@@ -78,7 +78,8 @@ export default class EditDialog extends Component {
     }
 
     componentWillMount() {
-        let {numbers}=this.props;
+        const {numbers}=this.props;
+        console.log('num',numbers)
         this.state = {numbers};
     }
 
@@ -87,14 +88,15 @@ export default class EditDialog extends Component {
         let {numbers}=this.state;
         onSubmit(numbers);
     }
-    onCreateHandler = ()=>()=>{
+    onCreateHandler = () => () => {
         let {numbers}=this.state;
         numbers.push({
-            select:1,
-            text:''
+            select: 1,
+            text: ''
         })
         this.setState({numbers})
     }
+
     render() {
         let {isOpen = false, onClose}=this.props;
 
@@ -116,7 +118,7 @@ export default class EditDialog extends Component {
 
             <Dialog actions={actions}
                     modal={true}
-                    actionsContainerStyle={{textAlign:'left'}}
+                    actionsContainerStyle={{textAlign: 'left'}}
                     open={isOpen}
                     onRequestClose={onClose}
             >
