@@ -4,7 +4,7 @@ import EditDialog from './EditDialog';
 import {List, ListItem} from 'material-ui/List';
 export default class Numbers extends Component {
     componentWillMount() {
-        let {state} = this.props;
+        let {state={numbers:[]}} = this.props;
         this.state = state;
         this.state.selectBox = [
             {value: 1, title: 'Ones'},
